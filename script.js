@@ -1,15 +1,24 @@
-window.addEventListener('scroll', () => {
-    const nav = document.querySelector('nav');
-    nav.classList.toggle('sticky', window.scrollY > 0);
-});
+// Toggle для "Read more"
+(function(){
+  const btn  = document.getElementById('heroToggle');
+  const more = document.getElementById('heroMore');
+  if(!btn || !more) return;
 
-function readMore() {
-  var expandInfo = document.getElementById("more-info-js");
-  var mainHeadings = document.getElementById("main-headings-js");
-  
-  mainHeadings.style.transform = "scale(0.7)";
-  expandInfo.style.height = "350px";
-} 
+  btn.addEventListener('click', function(e){
+    e.preventDefault();
+    const open = more.classList.toggle('is-open');
+    if(open){
+      more.hidden = false;
+      btn.setAttribute('aria-expanded', 'true');
+      btn.textContent = 'Hide';
+    }else{
+      // дождаться анимации, затем скрыть для читателей экрана
+      btn.setAttribute('aria-expanded', 'false');
+      btn.textContent = 'Read more';
+      setTimeout(()=>{ more.hidden = true; }, 300);
+    }
+  });
+})();
 
 
 
